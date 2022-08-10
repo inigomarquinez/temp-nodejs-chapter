@@ -1,0 +1,22 @@
+
+# This workflow is only used to test a npm package that is migrated to another organization
+
+name: Just checkout and run a command
+
+on: push
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check-out the repository
+      uses: actions/checkout@v3
+    - name: Setup node version 16.13.0 (LTS)
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.13.0'
+        registry-url: 'https://registry.npmjs.org'
+    - name: Install production dependencies
+      run: npm ci --production
+    - name: Run POC command
+      run: npm run poc
